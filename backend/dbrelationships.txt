@@ -1,0 +1,42 @@
+Database Relationships Overview
+
+1. User Model (User.js)
+- Relationship with Group Model:
+  - The User model has a group_id field which references the Group model. This means each user can be associated with one group (one-to-one relationship).
+  - Furthermore, the Group model has an admin_id field referencing the User model, indicating the administrator of that group.
+
+  - Nature of relationship:
+    - One-to-One from User to Group (via group_id in User model).
+    - One-to-One from Group to User (via admin_id in Group model) to denote the group's administrator.
+
+2. Group Model (group.js):
+- Relationship with User Model:
+  - As explained above, it holds a reference to a user via the admin_id field.
+- Relationship with GroupPreference Model:
+  - Through the group_id in the GroupPreference model. This means each group can have associated preferences.
+
+  - Nature of relationship:
+    - One-to-One from Group to User (via admin_id).
+    - One-to-One from Group to GroupPreference (via group_id in GroupPreference model).
+
+3. GroupPreference Model (GroupPreference.js):
+- Relationship with Group Model:
+  - The GroupPreference model has a group_id field which references the Group model. This indicates the preferences of a group.
+
+  - Nature of relationship:
+    - One-to-One from GroupPreference to Group (via group_id).
+
+4. UserGroupContribution Model (UserGroupContribution.js):
+- Relationship with User Model:
+  - The UserGroupContribution model has a user_id field that references the User model. This indicates which user made a specific contribution.
+- Relationship with Group Model:
+  - It also has a group_id field that references the Group model, indicating to which group the contribution was made.
+
+  - Nature of relationship:
+    - Many-to-One from UserGroupContribution to User (via user_id). Many contributions can belong to one user.
+    - Many-to-One from UserGroupContribution to Group (via group_id). Many contributions can be for one group.
+
+In summary:
+- A User can be part of one Group and can be the admin for a Group.
+- A Group can have specific GroupPreferences.
+- A User can make multiple contributions to various Groups as represented by UserGroupContribution.
